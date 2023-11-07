@@ -1,0 +1,18 @@
+/* your-component.component.css */
+@import 'node_modules/bootstrap/dist/css/bootstrap.min.css';
+
+#bg {
+  background-image: url('src/assets/opened-book-with-flying-pages-butterflies-dark-backgroundgenerative-ai_391052-12859.avif'); /* Set the path to your image */
+  /*background-size: cover;*/
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 900px;
+}
+
+.container {
+  color: white;
+  font-size: larger;
+  text-align: center;
+  font-weight: bolder;
+}
