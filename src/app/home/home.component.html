@@ -63,6 +63,31 @@
     </div>
     <br/>
 
+    <div class="row">
+      <div class="col-md-12 mt-5">
+        <label for="customRange" class="form-label">How are you doing today :</label>
+        <input type="range" class="" id="customRange" [(ngModel)]="sliderValue" />
+        <p class="mt-3">Selected Value: {{ sliderValue }}</p>
+      </div>
+    </div>
+
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <p>What emoji represents your mood the best today ?</p>
+      </div>
+      <br>
+      <div class="col-md-6">
+        <input type="radio" name="radio" value="Yes" id="yes">
+        <label for="yes"> <span> 😀 </span> </label>
+      </div>
+      <div class="col-md-6">
+        <input type="radio" name="radio" value="No" id="no">
+        <label for="no"> 🔥  </label>
+      </div>
+    </div>
+
   </div>
 
 

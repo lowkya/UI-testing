@@ -296,3 +296,10 @@ svg#clouds {
 input#exampleLabel {
   border: 1px black;
 }
+
+.container {
+  color: red;
+  font-size: larger;
+  text-align: center;
+  font-weight: bolder;
+}

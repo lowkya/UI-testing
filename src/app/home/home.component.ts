@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent {
   title = 'Assignment5';
+  sliderValue: any;
 
   constructor(private router: Router) {}
 
