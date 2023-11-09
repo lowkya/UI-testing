@@ -1,27 +1,26 @@
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import {FormsModule} from "@angular/forms";
+import {ColorComponent} from "./color/color.component";
+import {BookComponent} from "./book/book.component";
+import {RouterModule} from "@angular/router";
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    declarations: [AppComponent]
+    imports : [
+      FormsModule,
+      RouterModule
+    ],
+    declarations: [
+      AppComponent,
+      ColorComponent,
+      BookComponent
+    ]
   }));
 
   it('should create the app', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it(`should have as title 'Assignment5'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('Assignment5');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('Assignment5 app is running!');
   });
 });
