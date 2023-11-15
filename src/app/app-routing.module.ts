@@ -5,7 +5,7 @@ import { BookComponent } from './book/book.component';
 import {AppComponent} from "./app.component";
 import {HomeComponent} from "./home/home.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'color', component: ColorComponent },
   { path: 'book', component: BookComponent },

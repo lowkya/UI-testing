@@ -1,65 +1,127 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, tick} from '@angular/core/testing';
 
 import { ColorComponent } from './color.component';
 import {FormsModule} from "@angular/forms";
 import {By} from "@angular/platform-browser";
 import {RouterTestingModule} from "@angular/router/testing";
 import {Router} from "@angular/router";
+import {routes} from "../app-routing.module";
+import {async} from "rxjs";
 
 describe('ColorComponent', () => {
   let component: ColorComponent;
   let fixture: ComponentFixture<ColorComponent>;
   let router: Router;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
         RouterTestingModule,
-        RouterTestingModule.withRoutes([{ path: 'color', component: ColorComponent }]),
+        RouterTestingModule.withRoutes(routes),
       ],
       declarations: [ColorComponent]
     });
+
+    router = TestBed.inject(Router);
+    await router.navigate(['/color']);
     fixture = TestBed.createComponent(ColorComponent);
     component = fixture.componentInstance;
-    router = TestBed.inject(Router);
-    router.initialNavigation();
     fixture.detectChanges();
+  });
+
+  afterEach(() => {
+    // Reset router state or perform any necessary cleanup
+    TestBed.inject(Router).navigate(['/']);
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should take the flow back to home on clicking go back', () => {
+  it('should have initial url', () => {
+    fixture.detectChanges();
+    expect(router.url).toBe('/color');
+  });
+
+  it('should check if button to go to page 3 exists', () => {
+    const buttons = fixture.debugElement.queryAll(By.css('button'));
+    const buttonWithText = buttons.find(button => button.nativeElement.textContent.includes('Click to go to page 3 !'));
+
+    expect(buttonWithText).not.toBeUndefined();
+  });
+
+  it('should check if list exists', () => {
+    const itemList = fixture.nativeElement.querySelectorAll('ul li');
+    expect(itemList).not.toBeUndefined();
+    expect(itemList.length).toBe(4);
+  });
+
+  it('should check if checkboxes exist', () => {
+    const checkbox = fixture.nativeElement.querySelectorAll('input[type="checkbox"]');
+    expect(checkbox).not.toBe(undefined);
+    expect(checkbox.length).toBe(4);
+  });
+
+  it('should check what checkboxes are checked', () => {
+    const checkbox = fixture.nativeElement.querySelectorAll('input[type="checkbox"]');
+    expect(checkbox).not.toBe(undefined);
+    expect(checkbox.length).toBe(4);
+
+    expect(checkbox[0].checked).toBeFalse();
+    expect(checkbox[1].checked).toBeTrue();
+    expect(checkbox[2].checked).toBeFalse();
+    expect(checkbox[3].checked).toBeTrue();
+
+    checkbox[2].click();
+    fixture.detectChanges();
+    expect(checkbox[2].checked).toBeTrue();
+
+    checkbox[2].click();
+    fixture.detectChanges();
+    expect(checkbox[2].checked).toBeFalse();
+  });
+
+  it('should check if background image exists', () => {
+    const divWithBackgroundImage = fixture.nativeElement.querySelector('.container');
+    const computedStyles = getComputedStyle(divWithBackgroundImage);
+    const backgroundImage = computedStyles.getPropertyValue('background-image');
+    expect(backgroundImage).toContain('color1-20191204062437970.jpg');
+  });
+
+  it('should have correct list items', () => {
+    const itemList = fixture.nativeElement.querySelectorAll('ul li');
+    expect(itemList).not.toBeUndefined();
+    expect(itemList.length).toBe(4);
+
+    expect(itemList[0].textContent).toEqual("Black");
+    expect(itemList[1].textContent).toEqual("Purple");
+    expect(itemList[2].textContent).toEqual("Lavender");
+    expect(itemList[3].textContent).toEqual("Teal");
+  });
+
+  it('should take the flow to page 3', () => {
     const button = fixture.debugElement.query(By.css('button'));
     // const router = TestBed.inject(RouterTestingModule);
-    const spy = spyOn(component, "goBack");
+    const spy = spyOn(component, "navigateToBook");
 
     button.nativeElement.click();
 
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should have initial url', () => {
-    expect(router.url).toBe('/color');
-  });
-
-  it('should update the url to go back', () => {
+  it('should update the url to take to page 3', () => {
     const navigateSpy = spyOn(router, 'navigate');
 
     expect(router.url).toBe('/color');
 
     // Trigger the navigation
-    component.goBack();
+    component.navigateToBook();
 
     // Wait for all asynchronous tasks to complete
     fixture.whenStable().then(() => {
       // Check if router.navigate was called with the correct argument
-      expect(navigateSpy).toHaveBeenCalledWith(['']);
-
-      // Check the current URL
-      expect(router.url).toBe('/');
+      expect(navigateSpy).toHaveBeenCalledWith(['/book']);
     });
   });
 });

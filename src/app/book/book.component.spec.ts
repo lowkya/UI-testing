@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BookComponent } from './book.component';
 import {FormsModule} from "@angular/forms";
+import {By} from "@angular/platform-browser";
 
 describe('BookComponent', () => {
   let component: BookComponent;
@@ -21,5 +22,72 @@ describe('BookComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should check if text box exists', () => {
+    const textBox = fixture.nativeElement.querySelector('input[type="text"]');
+    expect(textBox).not.toBeUndefined();
+  });
+
+  it('should check text box by entering a value', () => {
+    const textBox = fixture.nativeElement.querySelector('input[type="text"]');
+    expect(textBox).not.toBeUndefined();
+
+    textBox.value = "Harry Potter";
+    textBox.dispatchEvent(new Event('input'));
+
+    fixture.detectChanges();
+    expect(textBox.value).toBe("Harry Potter");
+  });
+
+  it('should check if button to go to page 1 exists', () => {
+    const buttons = fixture.debugElement.queryAll(By.css('button'));
+    const buttonWithText = buttons.find(button => button.nativeElement.textContent.includes('Click here to go to page 1 !'));
+    expect(buttonWithText).not.toBeUndefined();
+  });
+
+  it('should check for slider', () => {
+    const slider = fixture.nativeElement.querySelectorAll('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    expect(slider.length).toEqual(1);
+  });
+
+  it('should have radio buttons', () => {
+    const radioButtons = fixture.nativeElement.querySelectorAll('input[type="radio"]');
+    expect(radioButtons).not.toBeUndefined();
+    expect(radioButtons.length).toEqual(2);
+    expect(radioButtons[0].value).toEqual("Yes");
+    expect(radioButtons[1].value).toEqual("No");
+  });
+
+  it('should check if radio buttons work properly', () => {
+    const radioButtons = fixture.nativeElement.querySelectorAll('input[type="radio"]');
+
+    expect(radioButtons.length).toEqual(2);
+
+    let radioButtonToSelect = radioButtons[0];
+    radioButtonToSelect.click();
+
+    // After clicking, check if the radio button is selected
+    fixture.detectChanges();
+
+    expect(radioButtonToSelect.checked).toBe(true);
+    expect(radioButtons[1].checked).toBe(false);
+
+    radioButtonToSelect = radioButtons[1];
+    radioButtonToSelect.click();
+
+    // After clicking, check if the radio button is selected
+    fixture.detectChanges();
+
+    expect(radioButtonToSelect.checked).toBe(true);
+    expect(radioButtons[0].checked).toBe(false);
+  });
+
+  it('should check for background image', () => {
+    const divWithBackgroundImage = fixture.nativeElement.querySelector('.container');
+    const computedStyles = getComputedStyle(divWithBackgroundImage);
+    const backgroundImage = computedStyles.getPropertyValue('background-image');
+    expect(backgroundImage).toContain('opened-book-with-flying-pages-butterflies-dark-backgroundgenerative-ai_391052-12859.avif');
   });
 });

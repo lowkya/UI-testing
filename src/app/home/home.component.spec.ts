@@ -59,9 +59,54 @@ describe('HomeComponent', () => {
     });
   });
 
+  it('should have slider', () => {
+    const slider = fixture.nativeElement.querySelectorAll('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    expect(slider.length).toEqual(1);
+  });
+
+  it('should have button', () => {
+    const buttons = fixture.debugElement.queryAll(By.css('button'));
+    const buttonWithText = buttons.find(button => button.nativeElement.textContent.includes('Click to go to page 2 !'));
+
+    expect(buttonWithText).not.toBeUndefined();
+  });
+
+  it('should have radio button', () => {
+    const radioButtons = fixture.nativeElement.querySelectorAll('input[type="radio"]');
+    expect(radioButtons).not.toBeUndefined();
+    expect(radioButtons.length).toEqual(2);
+    expect(radioButtons[0].value).toEqual("Yes");
+    expect(radioButtons[1].value).toEqual("No");
+  });
+
+  it('radio buttons should work properly', () => {
+    const radioButtons = fixture.nativeElement.querySelectorAll('input[type="radio"]');
+
+    expect(radioButtons.length).toEqual(2);
+
+    let radioButtonToSelect = radioButtons[0];
+    radioButtonToSelect.click();
+
+    // After clicking, check if the radio button is selected
+    fixture.detectChanges();
+
+    expect(radioButtonToSelect.checked).toBe(true);
+    expect(radioButtons[1].checked).toBe(false);
+
+    radioButtonToSelect = radioButtons[1];
+    radioButtonToSelect.click();
+
+    // After clicking, check if the radio button is selected
+    fixture.detectChanges();
+
+    expect(radioButtonToSelect.checked).toBe(true);
+    expect(radioButtons[0].checked).toBe(false);
+  });
+
   it('should go to color on clicking the go to color page button', function () {
     const buttons = fixture.debugElement.queryAll(By.css('button'));
-    const buttonWithText = buttons.find(button => button.nativeElement.textContent.includes('Click here to say your favourite color !'));
+    const buttonWithText = buttons.find(button => button.nativeElement.textContent.includes('Click to go to page 2 !'));
 
     expect(buttonWithText).not.toBeUndefined();
 
@@ -73,7 +118,7 @@ describe('HomeComponent', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  it('should navigate and update url for color', () => {
+  it('should navigate and update url to page 2', () => {
     const navigateSpy = spyOn(router, 'navigate');
 
     // Trigger the navigation
@@ -87,24 +132,6 @@ describe('HomeComponent', () => {
       // Check the current URL
       const currentUrl = router.url;
       expect(currentUrl).toBe('/color');
-    });
-  });
-
-  it('should navigate and update url for book', () => {
-    const navigateSpy = spyOn(router, 'navigate');
-
-    expect(router.url).toBe('/');
-
-    // Trigger the navigation
-    component.navigateToBook();
-
-    // Wait for all asynchronous tasks to complete
-    fixture.whenStable().then(() => {
-      // Check if router.navigate was called with the correct argument
-      expect(navigateSpy).toHaveBeenCalledWith(['book']);
-
-      // Check the current URL
-      expect(router.url).toBe('/book');
     });
   });
 });

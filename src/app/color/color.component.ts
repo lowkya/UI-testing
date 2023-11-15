@@ -8,7 +8,11 @@ import {Router} from "@angular/router";
 })
 export class ColorComponent {
   constructor(private router: Router) {}
-  goBack() {
-    this.router.navigate(['']);
+  // goBack() {
+  //   this.router.navigate(['']);
+  // }
+
+  navigateToBook() {
+    this.router.navigate(['/book']);
   }
 }
