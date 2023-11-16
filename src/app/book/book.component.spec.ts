@@ -3,18 +3,28 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { BookComponent } from './book.component';
 import {FormsModule} from "@angular/forms";
 import {By} from "@angular/platform-browser";
+import {Router, RouterModule} from "@angular/router";
+import {RouterTestingModule} from "@angular/router/testing";
+import {routes} from "../app-routing.module";
 
 describe('BookComponent', () => {
   let component: BookComponent;
   let fixture: ComponentFixture<BookComponent>;
+  let router: Router;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        FormsModule
+        FormsModule,
+        RouterModule,
+        RouterTestingModule,
+        RouterTestingModule.withRoutes(routes),
       ],
       declarations: [BookComponent]
     });
+
+    router = TestBed.inject(Router);
+    await router.navigate(['/book']);
     fixture = TestBed.createComponent(BookComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -120,5 +130,30 @@ describe('BookComponent', () => {
     let label = fixture.nativeElement.querySelector('.form-label');
     expect(label).not.toBe(undefined);
     expect(label.textContent).toBe("Enter below your favourite book :");
+  });
+
+  it("should navigate to page 1 on clicking go to page 1 button", () => {
+    const button = fixture.debugElement.query(By.css('button'));
+    // const router = TestBed.inject(RouterTestingModule);
+    const spy = spyOn(component, "goBack");
+
+    button.nativeElement.click();
+
+    expect(spy).toHaveBeenCalled();
+  });
+
+  it('should update the url to take to page 3', () => {
+    let navigateSpy = spyOn(router, 'navigate');
+
+    expect(router.url).toBe('/book');
+
+    // Trigger the navigation
+    component.goBack();
+
+    // Wait for all asynchronous tasks to complete
+    fixture.whenStable().then(() => {
+      // Check if router.navigate was called with the correct argument
+      expect(navigateSpy).toHaveBeenCalledWith(['']);
+    });
   });
 });

@@ -123,7 +123,7 @@ describe('HomeComponent', () => {
     expect(radioButtons[0].checked).toBe(false);
   });
 
-  it('should go to color on clicking the go to color page button',  () => {
+  it('should go to page 2 on clicking the go to page 2 button',  () => {
     const buttons = fixture.debugElement.queryAll(By.css('button'));
     const buttonWithText = buttons.find(button => button.nativeElement.textContent.includes('Click to go to page 2 !'));
 
