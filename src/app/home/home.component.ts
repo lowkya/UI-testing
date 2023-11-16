@@ -8,9 +8,11 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent {
   title = 'Assignment5';
-  sliderValue: any;
+  sliderValue: number;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.sliderValue = 50;
+  }
 
   navigateToColor() {
     this.router.navigate(['/color']);

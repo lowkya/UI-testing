@@ -4,7 +4,7 @@
       <label class="form-label fw-bolder fs-5 mr-2">Enter below your favourite color :</label>
     </div>
     <div class="col-md-12">
-      <input type="text" style="width: 800px; height: 50px">
+      <input type="text" style="width: 800px; height: 50px" value="" [(ngModel)]="favouriteColor">
     </div>
   </div>
 <!--  <div class="row mt-2">-->
@@ -13,12 +13,10 @@
 <!--    </div>-->
 <!--  </div>-->
   <div class="row mt-2">
-    <button type="button" class="btn btn-danger btn-lg mb-2" (click)="navigateToBook()">
-      Click to go to page 3 !
-    </button>
+    <button type="button" class="btn btn-danger btn-lg mb-2" (click)="navigateToBook()">Click to go to page 3 !</button>
   </div>
   <div class="row mt-2">
-    <p class="fw-bolder">These are my favourite colors :</p>
+    <p class="fw-bolder list-p">These are my favourite colors :</p>
     <div class="col-md-12">
       <ul>
         <li class="fw-bolder" style="color: black">Black</li>
@@ -29,7 +27,7 @@
     </div>
   </div>
   <div class="row mt-2">
-    <p>Which of these are your favourite colors ?</p>
+    <p class="checkbox-label">Which of these are your favourite colors ?</p>
     <div class="col-md-3">
       <input type="checkbox" value="" id="flexCheckDefault1">
       <label for="flexCheckDefault">

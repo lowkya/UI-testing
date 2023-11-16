@@ -11,6 +11,7 @@ export class ColorComponent {
   // goBack() {
   //   this.router.navigate(['']);
   // }
+  favouriteColor: string = "";
 
   navigateToBook() {
     this.router.navigate(['/book']);

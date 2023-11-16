@@ -90,4 +90,35 @@ describe('BookComponent', () => {
     const backgroundImage = computedStyles.getPropertyValue('background-image');
     expect(backgroundImage).toContain('opened-book-with-flying-pages-butterflies-dark-backgroundgenerative-ai_391052-12859.avif');
   });
+
+  it("should check working of slider", () => {
+    expect(fixture.nativeElement.querySelector('p').textContent).toEqual("Selected Value: 50");
+
+    component.sliderValue = 75;
+
+    fixture.detectChanges();
+
+    const slider = fixture.nativeElement.querySelectorAll('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    expect(slider.length).toEqual(1);
+    expect(fixture.nativeElement.querySelector('p').textContent).toEqual("Selected Value: 75");
+  });
+
+  it("check for existence of label for slider", () => {
+    let sliderLabel = fixture.debugElement.query(By.css('label[for="customRange"]'));
+    expect(sliderLabel).not.toBeUndefined();
+    expect(sliderLabel.nativeElement.textContent).toBe("How much do you like the book :");
+  });
+
+  it("check for existence of label for radio", () => {
+    let radioLabel = fixture.debugElement.query(By.css('.radio-label'));
+    expect(radioLabel).not.toBeUndefined();
+    expect(radioLabel.nativeElement.textContent.trim()).toEqual("Do you like reading ?")
+  });
+
+  it("check for existence of label for text box", () => {
+    let label = fixture.nativeElement.querySelector('.form-label');
+    expect(label).not.toBe(undefined);
+    expect(label.textContent).toBe("Enter below your favourite book :");
+  });
 });

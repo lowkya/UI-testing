@@ -7,7 +7,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./book.component.css']
 })
 export class BookComponent {
-  sliderValue: any;
+  sliderValue: number = 50;
 
   constructor(private router: Router) {}
   goBack() {

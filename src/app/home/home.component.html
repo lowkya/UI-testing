@@ -49,9 +49,7 @@
   <div class="container mt-3">
     <!-- This is home page. -->
     <div class="row">
-      <button type="button" class="btn btn-danger btn-lg mb-2 color" (click)="navigateToColor()">
-        Click to go to page 2 !
-      </button>
+      <button type="button" class="btn btn-danger btn-lg mb-2 color" (click)="navigateToColor()">Click to go to page 2 !</button>
     </div>
 
     <br/>
@@ -66,7 +64,10 @@
     <div class="row">
       <div class="col-md-12 mt-5">
         <label for="customRange" class="form-label">How are you doing today :</label>
-        <input type="range" class="" id="customRange" [(ngModel)]="sliderValue" />
+        <input type="range"
+               class=""
+               id="customRange"
+               [(ngModel)]="sliderValue"/>
         <p class="mt-3">Selected Value: {{ sliderValue }}</p>
       </div>
     </div>
@@ -75,7 +76,7 @@
 
     <div class="row">
       <div class="col-md-12">
-        <p>What emoji represents your mood the best today ?</p>
+        <p class="radio-label">What emoji represents your mood the best today ?</p>
       </div>
       <br>
       <div class="col-md-6">
