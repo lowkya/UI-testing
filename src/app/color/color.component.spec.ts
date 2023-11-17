@@ -170,5 +170,96 @@ describe('ColorComponent', () => {
     let listHeading = fixture.debugElement.query(By.css('.list-p'));
     expect(listHeading).not.toBeUndefined();
     expect(listHeading.nativeElement.textContent.trim()).toEqual("These are my favourite colors :")
-  })
+  });
+
+  it("should check for size of text box", () => {
+    const textbox = fixture.nativeElement.querySelector('input[type="text"]');
+    expect(textbox).not.toBeUndefined();
+    expect(textbox.style.width).toBe("800px");
+    expect(textbox.style.height).toBe("50px");
+  });
+
+  it("should check the size of list", () => {
+    const itemList = fixture.nativeElement.querySelector('ul');
+    expect(itemList).not.toBeUndefined();
+    expect(itemList.style.width).toBe('200px');
+  });
+
+  it("should check the size of list label", () => {
+    let listHeading = fixture.debugElement.query(By.css('.list-p'));
+    expect(listHeading).not.toBeUndefined();
+    expect(listHeading.nativeElement.style.width).toBe('400px')
+  });
+
+  it("should check the size of background image", () => {
+    const divWithBackgroundImage = fixture.nativeElement.querySelector('.container');
+    const computedStyles = getComputedStyle(divWithBackgroundImage);
+    expect(computedStyles.width).toBe('1140px');
+    expect(computedStyles.height).toBe('900px');
+  });
+
+  it("should check size of checkboxes", () => {
+    const checkbox = fixture.nativeElement.querySelector('input[type="checkbox"]');
+    expect(checkbox).not.toBe(undefined);
+    expect(checkbox.style.width).toBe('20px');
+  });
+
+  it("should check for size of button", () => {
+    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement
+    expect(buttonElement).not.toBeUndefined();
+    expect(buttonElement).not.toBeNull();
+    expect(buttonElement.style.width).toBe('100%')
+    expect(buttonElement.style.height).toBe('50px')
+  });
+
+  it("should check for location of button", () => {
+    const buttonElement:HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(buttonElement).toBeDefined();
+    const buttonRect = buttonElement.getBoundingClientRect();
+    expect(buttonRect.left).toBe(30);
+    expect(buttonRect.right).toBe(1170);
+    expect(buttonRect.top).toBe(178);
+    expect(buttonRect.bottom).toBe(228);
+  });
+
+  it("should check for location of text box", () => {
+    const textBox = fixture.nativeElement.querySelector('input[type="text"]');
+    expect(textBox).not.toBeUndefined();
+    const textBoxRect = textBox.getBoundingClientRect();
+    expect(textBoxRect.left).toBe(200);
+    expect(textBoxRect.right).toBe(1000);
+    expect(textBoxRect.top).toBe(120);
+    expect(textBoxRect.bottom).toBe(170);
+  });
+
+  it("should check for location of background image", () => {
+    const divWithBackgroundImage = fixture.nativeElement.querySelector('.container');
+    const backgroundRect = divWithBackgroundImage.getBoundingClientRect();
+
+    expect(backgroundRect.top).toBe(73);
+    expect(backgroundRect.bottom).toBe(973);
+    expect(backgroundRect.left).toBe(30);
+    expect(backgroundRect.right).toBe(1170);
+  });
+
+  it("should check for location of list", () => {
+    const itemList = fixture.nativeElement.querySelector('ul');
+    expect(itemList).not.toBeUndefined();
+    const itemRect = itemList.getBoundingClientRect();
+    expect(itemRect.top).toBe(282.5);
+    expect(itemRect.bottom).toBe(372.5);
+    expect(itemRect.left).toBe(42);
+    expect(itemRect.right).toBe(242);
+  });
+
+  it("should check for location of check box", () => {
+    const checkbox = fixture.nativeElement.querySelector('input[type="checkbox"]');
+    expect(checkbox).not.toBe(undefined);
+
+    const checkBoxRect = checkbox.getBoundingClientRect();
+    expect(checkBoxRect.top).toBe(439.5);
+    expect(checkBoxRect.bottom).toBe(452.5);
+    expect(checkBoxRect.left).toBe(567.6015625);
+    expect(checkBoxRect.right).toBe(587.6015625);
+  });
 });

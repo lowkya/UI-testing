@@ -156,4 +156,103 @@ describe('BookComponent', () => {
       expect(navigateSpy).toHaveBeenCalledWith(['']);
     });
   });
+
+  it("should check for size of text box", () => {
+    const textBox = fixture.nativeElement.querySelector('input[type="text"]');
+    expect(textBox.style.width).toBe('800px');
+    expect(textBox.style.height).toBe('50px');
+  });
+
+  it("should check for size of the button", () => {
+    const buttonElement = fixture.debugElement.query(By.css('button')).nativeElement
+    expect(buttonElement).not.toBeUndefined();
+    expect(buttonElement).not.toBeNull();
+    expect(buttonElement.style.width).toBe('100%');
+    expect(buttonElement.style.height).toBe('50px');
+  });
+
+  it("should check for size of slider", () => {
+    const slider = fixture.nativeElement.querySelector('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    expect(slider.style.width).toBe('200px');
+    expect(slider.style.height).toBe('10px');
+  });
+
+  it("should check for size of radio buttons", () => {
+    const option1Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+    const option2Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+
+    expect(option1Element).toBeDefined();
+    expect(option1Element.style.fontSize).toBe('16px');
+
+    expect(option2Element).toBeDefined();
+    expect(option2Element.style.fontSize).toBe('16px');
+  });
+
+  it("should check for size of background image", () => {
+    const divWithBackgroundImage = fixture.nativeElement.querySelector('.container');
+    const computedStyles = getComputedStyle(divWithBackgroundImage);
+    expect(computedStyles.width).toBe('1140px');
+    expect(computedStyles.height).toBe('900px');
+  });
+
+  it("should check for location of button", () => {
+    const buttonElement:HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(buttonElement).toBeDefined();
+    const buttonRect = buttonElement.getBoundingClientRect();
+    expect(buttonRect.left).toBe(42);
+    expect(buttonRect.right).toBe(1158);
+    expect(buttonRect.top).toBe(178);
+    expect(buttonRect.bottom).toBe(228);
+  });
+
+  it("should check for location of text box", () => {
+    const textBox = fixture.nativeElement.querySelector('input[type="text"]');
+    expect(textBox).not.toBeUndefined();
+    const textBoxRect = textBox.getBoundingClientRect();
+    expect(textBoxRect.left).toBe(200);
+    expect(textBoxRect.right).toBe(1000);
+    expect(textBoxRect.top).toBe(120);
+    expect(textBoxRect.bottom).toBe(170);
+  });
+
+  it("should check for location of slider", () => {
+    const slider = fixture.nativeElement.querySelector('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    const sliderRect = slider.getBoundingClientRect();
+
+    expect(sliderRect.top).toBe(283.5);
+    expect(sliderRect.bottom).toBe(293.5);
+    expect(sliderRect.left).toBe(635.21875);
+    expect(sliderRect.right).toBe(835.21875);
+  });
+
+  it("should check for location of radio button", () => {
+    const option1Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+    const option2Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+
+    expect(option1Element).toBeDefined();
+    const option1Rect = option1Element.getBoundingClientRect();
+    expect(option1Rect.top).toBe(386.5);
+    expect(option1Rect.bottom).toBe(405);
+    expect(option1Rect.left).toBe(580.234375);
+    expect(option1Rect.right).toBe(619.7578125);
+
+    expect(option2Element).toBeDefined();
+    const option2Rect = option2Element.getBoundingClientRect();
+    expect(option2Rect.top).toBe(386.5);
+    expect(option2Rect.bottom).toBe(405);
+    expect(option2Rect.left).toBe(580.234375);
+    expect(option2Rect.right).toBe(619.7578125);
+  });
+
+  it("should check for location of background image", () => {
+    const divWithBackgroundImage = fixture.nativeElement.querySelector('.container');
+    const backgroundRect = divWithBackgroundImage.getBoundingClientRect();
+
+    expect(backgroundRect.top).toBe(73);
+    expect(backgroundRect.bottom).toBe(973);
+    expect(backgroundRect.left).toBe(30);
+    expect(backgroundRect.right).toBe(1170);
+  })
 });

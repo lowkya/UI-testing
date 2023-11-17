@@ -6,6 +6,7 @@ import {AppComponent} from "../app.component";
 import {Router, RouterModule} from "@angular/router";
 import {By} from "@angular/platform-browser";
 import {RouterTestingModule} from "@angular/router/testing";
+import {DebugElement} from "@angular/core";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -166,4 +167,69 @@ describe('HomeComponent', () => {
     expect(radioLabel.nativeElement.textContent.trim()).toEqual("What emoji represents your mood the best today ?")
   })
 
+  it("should verify the size of button", () => {
+    const buttonElement: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(buttonElement).toBeDefined();
+    expect(buttonElement.style.width).toBe('100%');
+    expect(buttonElement.style.height).toBe('50px');
+  });
+
+  it("should verify the size of slider", () => {
+    const slider = fixture.nativeElement.querySelector('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    expect(slider.style.width).toBe('200px');
+    expect(slider.style.height).toBe('10px');
+  });
+
+  it("should verify the size of radio buttons", () => {
+    const option1Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+    const option2Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+
+    expect(option1Element).toBeDefined();
+    expect(option1Element.style.fontSize).toBe('16px');
+
+    expect(option2Element).toBeDefined();
+    expect(option2Element.style.fontSize).toBe('16px');
+  });
+
+  it("should check the location of button", () => {
+    const buttonElement: HTMLButtonElement = fixture.nativeElement.querySelector('button');
+    expect(buttonElement).toBeDefined();
+
+    const buttonRect = buttonElement.getBoundingClientRect();
+    expect(buttonRect.left).toBe(136);
+    expect(buttonRect.right).toBe(1064);
+    expect(buttonRect.top).toBe(235);
+    expect(buttonRect.bottom).toBe(285);
+  });
+
+  it("should check the location of slider", () => {
+    const slider = fixture.nativeElement.querySelector('input[type="range"]');
+    expect(slider).not.toBeUndefined();
+    const sliderRect = slider.getBoundingClientRect();
+
+    expect(sliderRect.top).toBe(386);
+    expect(sliderRect.bottom).toBe(396);
+    expect(sliderRect.left).toBe(603.90625);
+    expect(sliderRect.right).toBe(803.90625);
+  });
+
+  it("should check the location of radio button", () => {
+    const option1Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+    const option2Element: HTMLLabelElement = fixture.nativeElement.querySelector('.custom-radio');
+
+    expect(option1Element).toBeDefined();
+    const option1Rect = option1Element.getBoundingClientRect();
+    expect(option1Rect.top).toBe(482);
+    expect(option1Rect.bottom).toBe(503);
+    expect(option1Rect.left).toBe(583.59375);
+    expect(option1Rect.right).toBe(616.40625);
+
+    expect(option2Element).toBeDefined();
+    const option2Rect = option2Element.getBoundingClientRect();
+    expect(option2Rect.top).toBe(482);
+    expect(option2Rect.bottom).toBe(503);
+    expect(option2Rect.left).toBe(583.59375);
+    expect(option2Rect.right).toBe(616.40625);
+  });
 });
