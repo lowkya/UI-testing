@@ -1,12 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
 import {FormsModule} from "@angular/forms";
-import {AppComponent} from "../app.component";
 import {Router, RouterModule} from "@angular/router";
 import {By} from "@angular/platform-browser";
 import {RouterTestingModule} from "@angular/router/testing";
-import {DebugElement} from "@angular/core";
 
 describe('HomeComponent', () => {
   let component: HomeComponent;

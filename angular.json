@@ -11,7 +11,7 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
             "outputPath": "dist/assignment5",
             "index": "src/index.html",
@@ -52,6 +52,15 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
+            },
+            "e2e": {
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "vendorChunk": true,
+              "customWebpackConfig": {
+                "path": "./cypress/coverage.webpack.ts"
+              }
             }
           },
           "defaultConfiguration": "production"
@@ -67,6 +76,39 @@
             }
           },
           "defaultConfiguration": "development"
+        },
+        "serve-coverage": {
+          "builder": "@angular-builders/custom-webpack:dev-server",
+          "options": {
+            "browserTarget": "Assignment5:build:e2e"
+          }
+        },
+        "e2e": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "devServerTarget": "Assignment5:serve-coverage",
+            "watch": true,
+            "headless": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "Assignment5:serve-coverage:production"
+            }
+          }
+        },
+        "e2e-ci": {
+          "builder": "@cypress/schematic:cypress",
+          "options": {
+            "browser": "chrome",
+            "devServerTarget": "Assignment5:serve-coverage",
+            "headless": true,
+            "watch": false
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "Assignment5:serve-coverage:production"
+            }
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
