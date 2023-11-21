@@ -15,18 +15,30 @@ describe('ColorComponent', () => {
     cy.get('input[type="checkbox"]').should('have.length', 4);
   });
 
-  it('should check working of checkboxes', () => {
-    cy.get('input[type="checkbox"]').eq(1).should('be.checked');
-    cy.get('input[type="checkbox"]').eq(2).click().should('be.checked');
-    cy.get('input[type="checkbox"]').eq(2).click().should('not.be.checked');
-  });
-
   it('should check if background image exists', () => {
     cy.get('.container').should('have.css', 'background-image').and('include', 'color1-20191204062437970.jpg');
   });
 
   it('should check if list exists', () => {
     cy.get('ul li').should('have.length', 4);
+  });
+
+  it('should check if text box exists', () => {
+    cy.get('input[type="text"]').should('exist');
+  });
+
+  it('should check for label of text box', () => {
+    cy.get('.form-label').should('have.text', 'Enter below your favourite color :');
+  });
+
+  it('should check for label of checkbox', () => {
+    cy.get('.checkbox-label').should('have.text', 'Which of these are your favourite colors ?');
+  });
+
+  it('should check working of checkboxes', () => {
+    cy.get('input[type="checkbox"]').eq(1).should('be.checked');
+    cy.get('input[type="checkbox"]').eq(2).click().should('be.checked');
+    cy.get('input[type="checkbox"]').eq(2).click().should('not.be.checked');
   });
 
   it('should have correct list items', () => {
@@ -36,26 +48,9 @@ describe('ColorComponent', () => {
     });
   });
 
-  it('should take the flow to page 3', () => {
-    cy.get('button').contains('Click to go to page 3 !').click();
-    cy.url().should('include', '/book');
-  });
-
-  it('should check if text box exists', () => {
-    cy.get('input[type="text"]').should('exist');
-  });
-
   it('should check working of text box', () => {
     const newColor = 'Blue';
     cy.get('input[type="text"]').type(newColor).should('have.value', newColor);
-  });
-
-  it('should check for label of text box', () => {
-    cy.get('.form-label').should('have.text', 'Enter below your favourite color :');
-  });
-
-  it('should check for label of checkbox', () => {
-    cy.get('.checkbox-label').should('have.text', 'Which of these are your favourite colors ?');
   });
 
   it('should check for heading on list', () => {
@@ -134,5 +129,10 @@ describe('ColorComponent', () => {
       expect(checkBoxRect.left).to.be.closeTo(927, 1);
       expect(checkBoxRect.right).to.be.closeTo(947, 1);
     });
+  });
+
+  it('should take the flow to page 3', () => {
+    cy.get('button').contains('Click to go to page 3 !').click();
+    cy.url().should('include', '/book');
   });
 })

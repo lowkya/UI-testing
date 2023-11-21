@@ -3,12 +3,12 @@ describe('BookComponent', () => {
     cy.visit('http://localhost:4200/book');
   });
 
-  it('should have a text box', () => {
-    cy.get('input[type="text"]').should('exist');
+  it('should create and navigate to the correct initial URL', () => {
+    cy.url().should('include', '/book');
   });
 
-  it('should update text box value', () => {
-    cy.get('input[type="text"]').type('Harry Potter').should('have.value', 'Harry Potter');
+  it('should have a text box', () => {
+    cy.get('input[type="text"]').should('exist');
   });
 
   it('should have a button to go to page 1', () => {
@@ -23,21 +23,8 @@ describe('BookComponent', () => {
     cy.get('input[type="radio"]').should('have.length', 2);
   });
 
-  it('should check radio button functionality', () => {
-    cy.get('input[type="radio"]').eq(0).click().should('be.checked');
-    cy.get('input[type="radio"]').eq(1).should('not.be.checked');
-    cy.get('input[type="radio"]').eq(1).click().should('be.checked');
-    cy.get('input[type="radio"]').eq(0).should('not.be.checked');
-  });
-
   it('should have a background image', () => {
     cy.get('.container').should('have.css', 'background-image').and('include', 'opened-book-with-flying-pages-butterflies-dark-backgroundgenerative-ai_391052-12859.avif');
-  });
-
-  it('should update the slider value', () => {
-    cy.get('p').should('have.text', 'Selected Value: 50');
-    cy.get('input[type="range"]').invoke('val', 75).trigger('change');
-    cy.get('p').should('have.text', 'Selected Value: 75');
   });
 
   it('should have a label for slider', () => {
@@ -52,9 +39,21 @@ describe('BookComponent', () => {
     cy.get('.container .row:first-child .form-label').should('exist').and('have.text', 'Enter below your favourite book :');
   });
 
-  it('should navigate to page 1 on button click', () => {
-    cy.get('button').contains('Click here to go to page 1 !').click();
-    cy.url().should('eq', 'http://localhost:4200/');
+  it('should update text box value', () => {
+    cy.get('input[type="text"]').type('Harry Potter').should('have.value', 'Harry Potter');
+  });
+
+  it('should check radio button functionality', () => {
+    cy.get('input[type="radio"]').eq(0).click().should('be.checked');
+    cy.get('input[type="radio"]').eq(1).should('not.be.checked');
+    cy.get('input[type="radio"]').eq(1).click().should('be.checked');
+    cy.get('input[type="radio"]').eq(0).should('not.be.checked');
+  });
+
+  it('should update the slider value', () => {
+    cy.get('p').should('have.text', 'Selected Value: 50');
+    cy.get('input[type="range"]').invoke('val', 75).trigger('change');
+    cy.get('p').should('have.text', 'Selected Value: 75');
   });
 
   it('should have correct size for text box', () => {
@@ -125,5 +124,10 @@ describe('BookComponent', () => {
       expect(rect.left).to.eq(300);
       expect(rect.right).to.eq(1620);
     });
+  });
+
+  it('should navigate to page 1 on button click', () => {
+    cy.get('button').contains('Click here to go to page 1 !').click();
+    cy.url().should('eq', 'http://localhost:4200/');
   });
 });
